@@ -14,7 +14,7 @@ import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import GlobalStyle from '../../global-styles';
-import { AboutMe } from '../AboutMe';
+import AboutMe from '../AboutMe';
 
 export default function App() {
   return (
@@ -32,7 +32,7 @@ export default function App() {
         </nav>
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/aboutme/jamesboyett" component={AboutMe} />
+          <Route exact path="/aboutme/jamesboyett" render={() => <AboutMe />} />
           <Route component={NotFoundPage} />
         </Switch>
         <GlobalStyle />

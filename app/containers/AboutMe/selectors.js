@@ -5,7 +5,7 @@ import { initialState } from './reducer';
  * Direct selector to the aboutMe state domain
  */
 
-const selectAboutMeDomain = state => state.aboutMe || initialState;
+const selectAboutMeDomain = state => state.aboutMe.user || initialState;
 
 /**
  * Other specific selectors
@@ -15,11 +15,23 @@ const selectAboutMeDomain = state => state.aboutMe || initialState;
  * Default selector used by AboutMe
  */
 
-const makeSelectAboutMe = () =>
+export const makeSelectBioName = () =>
   createSelector(
     selectAboutMeDomain,
-    substate => substate,
+    substate => substate.name,
   );
 
-export default makeSelectAboutMe;
+export const makeSelectBioImage = () =>
+  createSelector(
+    selectAboutMeDomain,
+    substate => substate.image,
+  );
+
+export const makeSelectBioText = () =>
+  createSelector(
+    selectAboutMeDomain,
+    substate => substate.text,
+  );
+
+// export default makeSelectAboutMe;
 export { selectAboutMeDomain };

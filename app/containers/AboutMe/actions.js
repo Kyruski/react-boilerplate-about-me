@@ -4,10 +4,14 @@
  *
  */
 
-import { DEFAULT_ACTION } from './constants';
+import {
+  BIO_FETCH_FAILED,
+  BIO_FETCH_SUCCEEDED,
+  BIO_FETCH_REQUESTED,
+} from './constants';
 
 export function defaultAction() {
   return {
-    type: DEFAULT_ACTION,
+    type: BIO_FETCH_FAILED,
   };
 }

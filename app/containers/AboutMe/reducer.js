@@ -4,15 +4,32 @@
  *
  */
 import produce from 'immer';
-import { DEFAULT_ACTION } from './constants';
+import { BIO_FETCH_FAILED, BIO_FETCH_SUCCEEDED } from './constants';
 
-export const initialState = {};
+export const initialState = {
+  message: '',
+  user: {
+    name: '',
+    text: '',
+    image: {
+      src: '',
+      alt: '',
+      height: '',
+      width: '',
+    },
+  },
+};
 
 /* eslint-disable default-case, no-param-reassign */
 const aboutMeReducer = (state = initialState, action) =>
-  produce(state, (/* draft */) => {
+  produce(state, draft => {
     switch (action.type) {
-      case DEFAULT_ACTION:
+      case BIO_FETCH_SUCCEEDED:
+        draft.message = BIO_FETCH_SUCCEEDED;
+        draft.user = action.user;
+        break;
+      case BIO_FETCH_FAILED:
+        draft.message = BIO_FETCH_FAILED;
         break;
     }
   });
