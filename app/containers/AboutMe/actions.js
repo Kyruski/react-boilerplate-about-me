@@ -1,7 +1,5 @@
 /*
- *
- * AboutMe actions
- *
+  AboutMe actions
  */
 
 import {
@@ -10,8 +8,23 @@ import {
   BIO_FETCH_REQUESTED,
 } from './constants';
 
-export function defaultAction() {
+export function bioFetchFailed(message) {
   return {
     type: BIO_FETCH_FAILED,
+    message,
+  };
+}
+
+export function bioFetchSuccess(user) {
+  return {
+    type: BIO_FETCH_SUCCEEDED,
+    user,
+  };
+}
+
+export function bioFetchRequested(username) {
+  return {
+    type: BIO_FETCH_REQUESTED,
+    username,
   };
 }

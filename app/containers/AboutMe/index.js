@@ -4,7 +4,7 @@
  *
  */
 
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -24,10 +24,14 @@ import reducer from './reducer';
 import saga from './saga';
 import Image from '../../components/Image';
 import H1 from '../../components/H1';
+import { bioFetchRequested } from './actions';
 
-export function AboutMe({ text, name, image }) {
+export function AboutMe({ name, image, text, loadUser }) {
   useInjectReducer({ key: 'aboutMe', reducer });
   useInjectSaga({ key: 'aboutMe', saga });
+  useEffect(() => {
+    if (name === '') loadUser('kyruski');
+  }, []);
   const defaultMessage = `About Me: ${name}`;
   const message = {
     id: 'aboutme',
@@ -35,7 +39,7 @@ export function AboutMe({ text, name, image }) {
   };
   const bio = {
     id: 'biography',
-    defaultMessage: text,
+    defaultMessage: text || 'Loading',
   };
   return (
     <div style={{ margin: '2vw' }}>
@@ -49,13 +53,15 @@ export function AboutMe({ text, name, image }) {
       <FlexContainer
         itemsCenter
         justifySpaceAround
-        style={{ width: '50vw', margin: '2vw' }}
+        style={{ maxWidth: '80vw', margin: '2vw' }}
       >
-        <FormattedMessage {...bio} />
+        <div style={{ minWidth: '40vw' }}>
+          <FormattedMessage {...bio} />
+        </div>
         <Image
           source={image.src}
           alt={image.alt}
-          height={image.height || ''}
+          height={screen.width <= 1000 ? '40vh' : image.height}
           width={image.width || ''}
         />
       </FlexContainer>
@@ -63,12 +69,12 @@ export function AboutMe({ text, name, image }) {
   );
 }
 
-// AboutMe.propTypes = {
-//   // dispatch: PropTypes.func.isRequired,
-//   name: PropTypes.string,
-//   image: PropTypes.object,
-//   text: PropTypes.string,
-// };
+AboutMe.propTypes = {
+  loadUser: PropTypes.func.isRequired,
+  name: PropTypes.string,
+  text: PropTypes.string,
+  image: PropTypes.object,
+};
 
 const mapStateToProps = createStructuredSelector({
   name: makeSelectBioName(),
@@ -83,7 +89,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    loadUser: username => dispatch(bioFetchRequested(username)),
   };
 }
 

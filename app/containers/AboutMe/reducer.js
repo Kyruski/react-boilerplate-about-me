@@ -4,7 +4,11 @@
  *
  */
 import produce from 'immer';
-import { BIO_FETCH_FAILED, BIO_FETCH_SUCCEEDED } from './constants';
+import {
+  BIO_FETCH_FAILED,
+  BIO_FETCH_SUCCEEDED,
+  BIO_FETCH_REQUESTED,
+} from './constants';
 
 export const initialState = {
   message: '',
@@ -24,12 +28,17 @@ export const initialState = {
 const aboutMeReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
+      case BIO_FETCH_REQUESTED:
+        draft.message = BIO_FETCH_REQUESTED;
+        break;
       case BIO_FETCH_SUCCEEDED:
         draft.message = BIO_FETCH_SUCCEEDED;
         draft.user = action.user;
         break;
       case BIO_FETCH_FAILED:
-        draft.message = BIO_FETCH_FAILED;
+        console.log(action.message);
+        draft.user.text = action.message;
+        draft.message = action.message;
         break;
     }
   });
