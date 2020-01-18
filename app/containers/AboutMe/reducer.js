@@ -30,6 +30,7 @@ const aboutMeReducer = (state = initialState, action) =>
     switch (action.type) {
       case BIO_FETCH_REQUESTED:
         draft.message = BIO_FETCH_REQUESTED;
+        draft.user.text = 'Loading';
         break;
       case BIO_FETCH_SUCCEEDED:
         draft.message = BIO_FETCH_SUCCEEDED;
@@ -38,7 +39,7 @@ const aboutMeReducer = (state = initialState, action) =>
       case BIO_FETCH_FAILED:
         console.log(action.message);
         draft.user.text = action.message;
-        draft.message = action.message;
+        draft.message = [action.message, BIO_FETCH_FAILED];
         break;
     }
   });

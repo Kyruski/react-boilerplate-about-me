@@ -17,12 +17,10 @@ export function* fetchUser(user) {
 export function* getAboutMe(action) {
   try {
     const user = yield call(() => fetchUser(action.username));
-    if (user === null) throw 'Error connecting to Server';
+    if (user === null) throw new Error('Error connecting to Server');
     yield put(bioFetchSuccess(user));
   } catch (e) {
-    console.log(e);
-    const message = typeof e === 'string' ? e : e.message;
-    yield put(bioFetchFailed(message));
+    yield put(bioFetchFailed(e.message));
   }
 }
 
