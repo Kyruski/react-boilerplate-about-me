@@ -16,7 +16,7 @@ export function* fetchUser(user) {
 // Individual exports for testing
 export function* getAboutMe(action) {
   try {
-    const user = yield call(() => fetchUser(action.username));
+    const user = yield call(fetchUser, action.username);
     if (user === null) throw new Error('Error connecting to Server');
     yield put(bioFetchSuccess(user));
   } catch (e) {
