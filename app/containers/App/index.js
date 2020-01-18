@@ -32,7 +32,7 @@ export default function App() {
         </nav>
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/aboutme/jamesboyett" render={() => <AboutMe />} />
+          <Route exact path="/aboutme/jamesboyett" component={AboutMe} />
           <Route component={NotFoundPage} />
         </Switch>
         <GlobalStyle />
