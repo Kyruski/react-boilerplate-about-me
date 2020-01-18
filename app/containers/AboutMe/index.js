@@ -81,11 +81,6 @@ const mapStateToProps = createStructuredSelector({
   image: makeSelectBioImage(),
   text: makeSelectBioText(),
 });
-// function mapStateToProps(state) {
-//   return {
-//     item: 'abc',
-//   };
-// }
 
 function mapDispatchToProps(dispatch) {
   return {

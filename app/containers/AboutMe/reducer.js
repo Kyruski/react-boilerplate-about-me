@@ -37,9 +37,8 @@ const aboutMeReducer = (state = initialState, action) =>
         draft.user = action.user;
         break;
       case BIO_FETCH_FAILED:
-        console.log(action.message);
         draft.user.text = action.message;
-        draft.message = [action.message, BIO_FETCH_FAILED];
+        draft.message = BIO_FETCH_FAILED;
         break;
     }
   });
